@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit"
+	xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="munitexperiment-test-suite.xml" />
+	<munit:test name="munitexperiment-test-suite-validation-assert-That" doc:id="98c5af42-018c-4613-a0ac-dbd34b2f71d9" description="positive scenario checking the backend call is made and a response is returned">
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to munitexperimentFlow" doc:id="636765e2-9570-433f-bc97-1cafd9fdbdd1" name="munitexperimentFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="ce6d9a5a-2fae-44db-bfeb-7a86175ffa89" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+
+	<munit:test name="munitexperiment-test-suite-validation-assert-expression" doc:id="fe043bc9-d537-4c31-a0d5-c498d74e1566" description="positive scenario checking the backend call is made and a response is returned">
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to munitexperimentFlow" doc:id="81081a0b-712c-4e01-b30e-d9b07b5db323" name="munitexperimentFlow"/>
+		</munit:execution>
+		<munit:validation>
+			<munit-tools:assert doc:name="Assert expression" doc:id="f414cc4d-c667-485e-b932-346086af7da9" />
+		</munit:validation>
+	</munit:test>
+
+	<munit:test name="munitexperiment-test-suite-validation-assert-equals" doc:id="2634c155-c1ce-4fca-a874-e19cd348cd97" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to munitexperimentFlow" doc:id="1f327f3e-dfca-4e74-8bca-e13d2dc7e58c" name="munitexperimentFlow"/>
+		</munit:execution>
+		<munit:validation>
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="4e2d9d4a-455a-421e-b0c4-b618cf86fc81" actual="#[payload]" expected="#[MunitTools::getResourceAsString('ordersResponse.json')]" message="The payload should be ordersResponse"/>
+		</munit:validation>
+	</munit:test>
+
+</mule>
